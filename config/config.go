@@ -6,7 +6,7 @@ import (
 
 // RedisConnect connects to redis
 func RedisConnect() redis.Conn {
-	c, err := redis.Dial("tcp", ":6379")
+	c, err := redis.Dial("tcp", "redis:6379")
 	handleError(err)
 	return c
 }

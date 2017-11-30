@@ -5,7 +5,7 @@ services:
     ports:
       - "6379:6379"
 
-  pgadmin:
+  backend:
     image: "shortgg-api:latest"
     links:
       - "redis:redis"

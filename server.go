@@ -25,5 +25,7 @@ func main() {
 	e.GET("/api/shorten/:url", handlers.ShortenURL)
 	e.GET("/api/find/:key", handlers.FindURL)
 
+	e.GET("/:key", handlers.Redirect)
+
 	e.Logger.Fatal(e.Start(":1323"))
 }

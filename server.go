@@ -18,12 +18,12 @@ func main() {
 		AllowMethods: []string{echo.GET, echo.PUT, echo.POST, echo.DELETE, echo.OPTIONS},
 	}))
 
-	e.GET("/", func(c echo.Context) error {
+	e.GET("/api/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "short.gg API")
 	})
 
-	e.GET("/shorten/:url", handlers.ShortenURL)
-	e.GET("/find/:key", handlers.FindURL)
+	e.GET("/api/shorten/:url", handlers.ShortenURL)
+	e.GET("/api/find/:key", handlers.FindURL)
 
 	e.Logger.Fatal(e.Start(":1323"))
 }

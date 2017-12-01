@@ -34,3 +34,16 @@ func FindURL(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, url)
 }
+
+
+// Redirect find an URL by its key
+func Redirect(c echo.Context) error {
+	key := c.Param("key")
+
+	url, err := logic.Find(key)
+	if err != nil {
+		// instead return there 404 page
+		return echo.NewHTTPError(http.StatusTeapot)
+	}
+	return c.Redirect(http.StatusMovedPermanently, url.RedirectTo)
+}

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"regexp"
 	"time"
 
 	config "../config"
@@ -28,6 +29,12 @@ func Shorten(url string) (string, error) {
 
 	p.Key = fmt.Sprintf("%v", nextKey)
 	p.Timestamp = time.Now()
+
+	matched, _ := regexp.MatchString("^http[s]?://.*$", url)
+	if !matched {
+		url = "http://" + url
+	}
+
 	p.RedirectTo = url
 
 	// marshal models.ShortenedURL to JSON blob

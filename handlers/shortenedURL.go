@@ -3,6 +3,7 @@ package handlers
 import (
 	b64 "encoding/base64"
 	"net/http"
+	"strconv"
 
 	logic "../logic"
 
@@ -20,14 +21,21 @@ func ShortenURL(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusTeapot)
 	}
 
-	return c.JSON(http.StatusOK, shortenedURL)
+	// Encode in B58 the url key
+	key, _ := strconv.Atoi(shortenedURL)
+	hash := logic.EncodeB58(key)
+
+	return c.JSON(http.StatusOK, hash)
 }
 
 // FindURL find an URL by its key
 func FindURL(c echo.Context) error {
 	key := c.Param("key")
 
-	url, err := logic.Find(key)
+	decodedKey := logic.DecodeB58(key)
+	index := strconv.Itoa(decodedKey)
+
+	url, err := logic.Find(index)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusTeapot)
 	}

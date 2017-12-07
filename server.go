@@ -16,7 +16,7 @@ func main() {
 	e.Use(middleware.Logger())
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{os.Getenv("CORS_URL")},
+		AllowOrigins: []string{os.Getenv("CORS_URL"), "chrome-extension://lalhakoplnjfhbeigdgcnefcfmhiignc"},
 		AllowMethods: []string{echo.GET, echo.PUT, echo.POST, echo.DELETE, echo.OPTIONS},
 	}))
 

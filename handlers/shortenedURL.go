@@ -10,11 +10,18 @@ import (
 	"github.com/labstack/echo"
 )
 
+type (
+	ShortenURLBody struct {
+		URL string `json:"url"`
+	}
+)
+
 // ShortenURL shortens url right
 func ShortenURL(c echo.Context) error {
-	url := c.Param("url")
+	body := new(ShortenURLBody)
+	c.Bind(body)
 
-	decodedURL, _ := b64.StdEncoding.DecodeString(url)
+	decodedURL, _ := b64.StdEncoding.DecodeString(body.URL)
 
 	shortenedURL, err := logic.Shorten(string(decodedURL))
 	if err != nil {

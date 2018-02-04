@@ -24,7 +24,7 @@ func main() {
 		return c.String(http.StatusOK, "short.gg API")
 	})
 
-	e.GET("/api/shorten/:url", handlers.ShortenURL)
+	e.POST("/api/shorten", handlers.ShortenURL)
 	e.GET("/api/find/:key", handlers.FindURL)
 
 	e.GET("/:key", handlers.Redirect)
